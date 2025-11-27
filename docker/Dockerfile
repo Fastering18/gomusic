@@ -11,7 +11,7 @@ RUN GO_VERSION=$(go version | awk '{print $3}') && \
     CGO_ENABLED=1 && \
     rm -f .env && \
     go build -o app -ldflags "-X 'github.com/keshon/melodix/internal/version.BuildDate=${BUILD_DATE}' -X 'github.com/keshon/melodix/internal/version.GoVersion=${GO_VERSION}'" cmd/melodix/melodix.go && \
-    touch datastore.json && \
+    echo "{}" > datastore.json && \
     apk del build-base && \
     rm -rf /var/cache/apk/* && \
     rm -rf /usr/share/man
