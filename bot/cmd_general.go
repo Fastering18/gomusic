@@ -42,8 +42,7 @@ func aboutCommand(s *discordgo.Session, m *discordgo.MessageCreate, b *Bot, para
 	emb := embed.NewEmbed().
 		SetColor(embedColor).
 		SetDescription(fmt.Sprintf("%v\n\n%v — %v", "ℹ️ About", version.AppName, version.AppDescription)).
-		AddField("Made by Innokentiy Sokolov", "[Linkedin](https://www.linkedin.com/in/keshon), [GitHub](https://github.com/keshon), [Homepage](https://keshon.ru)").
-		AddField("Repository", "https://github.com/keshon/melodix").
+		AddField("Made by Fastering18", "[Linkedin](https://www.linkedin.com/in/keshon), [GitHub](https://github.com/keshon), [Homepage](https://keshon.ru)").
 		AddField("Release:", buildDate+" (go version "+strings.TrimLeft(goVer, "go")+")").
 		SetImage("attachment://" + filepath.Base(imagePath)).
 		MessageEmbed

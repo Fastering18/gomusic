@@ -2,7 +2,7 @@
 FROM golang:1.23.0-alpine3.20 AS build
 
 RUN apk add --no-cache build-base
-ADD src /usr/project
+COPY . /usr/project
 WORKDIR /usr/project
 
 # Combine commands for better layer caching
