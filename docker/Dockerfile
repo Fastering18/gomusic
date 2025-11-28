@@ -30,6 +30,8 @@ RUN apk update && \
     pip3 install --upgrade git+https://github.com/yt-dlp/yt-dlp.git@release && \
     pip3 install apprise
 
+RUN pip3 install -U yt-dlp
+
 COPY --from=build /usr/project /usr/project
 
 WORKDIR /usr/project

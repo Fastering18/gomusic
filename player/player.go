@@ -347,7 +347,7 @@ func (p *Player) joinVoiceChannel(session *discordgo.Session, guildID, channelID
 	delay := 100 * time.Millisecond
 
 	for attempts := 0; attempts < 5; attempts++ {
-		voiceConnection, err = session.ChannelVoiceJoin(guildID, channelID, false, false)
+		voiceConnection, err = session.ChannelVoiceJoin(context.TODO(), guildID, channelID, false, false)
 		if err == nil {
 			voiceConnection.Speaking(true)
 			return voiceConnection, nil
@@ -363,7 +363,7 @@ func (p *Player) leaveVoiceChannel(vc *discordgo.VoiceConnection) error {
 	if err := vc.Speaking(false); err != nil {
 		return err
 	}
-	if err := vc.Disconnect(); err != nil {
+	if err := vc.Disconnect(context.TODO()); err != nil {
 		return err
 	}
 	return nil
