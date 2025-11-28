@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"net/http"
 
 	"github.com/joho/godotenv"
 	"github.com/keshon/melodix/bot"
@@ -44,9 +45,33 @@ func main() {
 		log.Fatal("Failed to start bot:", err)
 	}
 
-	fmt.Println("Press CTRL-C to exit.")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Fallback for local development
+	}
+
+	// Simple handler that returns 200 OK
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Bot is running"))
+	})
+
+	// Run the HTTP server in a goroutine so it doesn't block the rest of the code
+	go func() {
+		fmt.Printf("Web server listening on port %s\n", port)
+		if err := http.ListenAndServe(":"+port, nil); err != nil {
+			log.Fatal("Failed to start HTTP server:", err)
+		}
+	}()
+
+	// ---------------------------------------------------------
+
+	fmt.Println("Bot is running. Press CTRL-C to exit.")
+	
+	// Wait here until CTRL-C or other term signal is received.
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
 	<-sc
-	close(sc)
+	
+	fmt.Println("Shutting down...")
 }

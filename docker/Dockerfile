@@ -24,6 +24,7 @@ RUN apk update && \
         ffmpeg \
         bash \
         python3 \
+        nodejs \
         py3-pip \
         git && \
     pip3 install --upgrade git+https://github.com/yt-dlp/yt-dlp.git@release && \
